@@ -29,4 +29,13 @@ app.get('/sensors', function (req, res) {
     });
 });
 
+// getting specific sensor
+app.get('/sensors/:id', function (req, res) {
+    const id = req.params.id;
+    connection.query('SELECT * from sensors WHERE id =' +  id, function (error, results, fields) {
+      if (error) throw error;
+      res.send(results);
+    });
+});
+
 app.listen(3000);
