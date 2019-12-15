@@ -1,6 +1,7 @@
 var express = require('express');
 var app = express();
 var bodyParser = require('body-parser');
+const cors = require('cors');
 
 // create application/json parser
 var jsonParser = bodyParser.json();
@@ -9,7 +10,7 @@ var jsonParser = bodyParser.json();
 app.use(bodyParser.urlencoded({ extended: false }))
 // parse application/json
 app.use(bodyParser.json())
-
+app.use(cors());
 var mysql      = require('mysql');
 var connection = mysql.createConnection({
     host     : 'localhost',
@@ -52,12 +53,23 @@ app.get('/sensors/remove/:id', function (req, res) {
     });
 });
 
-// removing specific sensor
+// adding new sensor
 app.post('/sensors/add', function (req, res) {
     console.log(req.body);
     let query = "insert into sensors(altura, largura, comprimento, tensao, marca, tipo) values (" + req.body.altura + "," + req.body.largura + ",";
     query += req.body.comprimento + "," + req.body.tensao + ",'" + req.body.marca + "','" + req.body.tipo +  "');";
     console.log(query);
+    connection.query(query, function (error, results, fields) {
+      if (error) throw error;
+      res.send(results);
+    });
+});
+
+// updating specific sensor
+app.put('/sensors/update/:id', function (req, res) {
+    const id = req.params.id;
+    let query = "UPDATE sensors SET altura = " + req.body.altura + ", largura = " + req.body.largura + ", comprimento = "+req.body.comprimento + ",";
+    query +=   "tensao = "+ req.body.tensao + ",tipo = '" + req.body.tipo + "', marca = '" +req.body.marca + "' WHERE id =" + id;
     connection.query(query, function (error, results, fields) {
       if (error) throw error;
       res.send(results);
