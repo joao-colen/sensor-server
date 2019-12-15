@@ -56,9 +56,9 @@ app.get('/sensors/remove/:id', function (req, res) {
 // adding new sensor
 app.post('/sensors/add', function (req, res) {
     console.log(req.body);
-    let query = "insert into sensors(altura, largura, comprimento, tensao, marca, tipo, ultima_medida, latitude, longitude) values (" + req.body.altura + "," + req.body.largura + ",";
+    let query = "insert into sensors(altura, largura, comprimento, tensao, marca, tipo, ultima_medida, latitude, longitude, endereco) values (" + req.body.altura + "," + req.body.largura + ",";
     query += req.body.comprimento + "," + req.body.tensao + ",'" + req.body.marca + "','" + req.body.tipo +  "',";
-    query += req.body.valor_medido + "," + req.body.latitude + "," + req.body.longitude + ");";
+    query += req.body.valor_medido + "," + req.body.latitude + "," + req.body.longitude + ",'" + req.body.endereco + "');";
     console.log(query);
     connection.query(query, function (error, results, fields) {
       if (error) throw error;
@@ -72,7 +72,7 @@ app.put('/sensors/update/:id', function (req, res) {
     console.log(req.body);
     let query = "UPDATE sensors SET altura = " + req.body.altura + ", largura = " + req.body.largura + ", comprimento = "+req.body.comprimento + ",";
     query +=   "tensao = "+ req.body.tensao + ",tipo = '" + req.body.tipo + "', marca = '" +req.body.marca + "',";
-    query += "ultima_medida = " + req.body.valor_medido + ", latitude =" + req.body.latitude + ", longitude = " + req.body.longitude + " WHERE id =" + id;
+    query += "ultima_medida = " + req.body.valor_medido + ", latitude =" + req.body.latitude + ", longitude = " + req.body.longitude + ",endereco = '" +  req.body.endereco + "' WHERE id =" + id;
     connection.query(query, function (error, results, fields) {
       if (error) throw error;
       res.send(results);
