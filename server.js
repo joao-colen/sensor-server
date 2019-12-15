@@ -5,6 +5,11 @@ var bodyParser = require('body-parser');
 // create application/json parser
 var jsonParser = bodyParser.json();
 
+
+app.use(bodyParser.urlencoded({ extended: false }))
+// parse application/json
+app.use(bodyParser.json())
+
 var mysql      = require('mysql');
 var connection = mysql.createConnection({
     host     : 'localhost',
@@ -33,6 +38,27 @@ app.get('/sensors', function (req, res) {
 app.get('/sensors/:id', function (req, res) {
     const id = req.params.id;
     connection.query('SELECT * from sensors WHERE id =' +  id, function (error, results, fields) {
+      if (error) throw error;
+      res.send(results);
+    });
+});
+
+// removing specific sensor
+app.get('/sensors/remove/:id', function (req, res) {
+    const id = req.params.id;
+    connection.query('DELETE from sensors WHERE id =' +  id, function (error, results, fields) {
+      if (error) throw error;
+      res.send(results);
+    });
+});
+
+// removing specific sensor
+app.post('/sensors/add', function (req, res) {
+    console.log(req.body);
+    let query = "insert into sensors(altura, largura, comprimento, tensao, marca, tipo) values (" + req.body.altura + "," + req.body.largura + ",";
+    query += req.body.comprimento + "," + req.body.tensao + ",'" + req.body.marca + "','" + req.body.tipo +  "');";
+    console.log(query);
+    connection.query(query, function (error, results, fields) {
       if (error) throw error;
       res.send(results);
     });
