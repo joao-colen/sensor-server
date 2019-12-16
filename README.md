@@ -1,6 +1,6 @@
 # SensorServe
 
-This project was generated with [Node.js](https://nodejs.org/en/) version 13.0.1.
+This project generates a API of sensors using [Node.js](https://nodejs.org/en/) version 13.0.1, with CRUD functions
 
 ## Installation
 
