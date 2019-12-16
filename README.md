@@ -12,7 +12,7 @@ Run `npm install` to install all the dependencies of the project
 
 ## Dependencies
 
-It requires [MySql](https://www.mysql.com/) for the database
+It requires [MySql](https://www.mysql.com/) and [Node.js](https://nodejs.org/en/)
 
 ## Usage
 
