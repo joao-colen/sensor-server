@@ -5,12 +5,12 @@ const cors = require('cors');
 
 // create application/json parser
 var jsonParser = bodyParser.json();
-
-
 app.use(bodyParser.urlencoded({ extended: false }))
+
 // parse application/json
 app.use(bodyParser.json())
-app.use(cors());
+
+// mysql configuration
 var mysql      = require('mysql');
 var connection = mysql.createConnection({
     host     : 'localhost',
@@ -19,13 +19,16 @@ var connection = mysql.createConnection({
     database : 'sensors'
 });
 
+// connect with database
 connection.connect();
 
+// cors
 app.use(function(req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     next();
 });
+app.use(cors());
 
 // getting all the sensors
 app.get('/sensors', function (req, res) {
