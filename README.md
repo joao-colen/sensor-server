@@ -4,7 +4,7 @@ This project generates a API of sensors using [Node.js](https://nodejs.org/en/) 
 
 ## Installation
 
-Run `git clone` on `https://github.com/joao-colen/sensor-server.git` to download the project of sensorServer
+Run `git clone` on `https://github.com/joao-colen/sensor-server.git` to download the project of SensorServer
 
 Go to the folder of the project with `cd sensor-server`
 
@@ -16,11 +16,11 @@ It requires [MySql](https://www.mysql.com/) for the database
 
 ## Usage
 
-Run `mysql -u root -p` to log in MySql
+Go to a terminal and run `mysql -u root -p` to log in MySql
 
-Go to the folder of the project and use the commands of `database.sql` in the mysql bash to create the database
+Inside the folder of the project, there is a file `database.sql`, copy the commands of this file and paste in the mysql bash to create the database
 
-Go to the folder of the project and in the file of server.js change:
+Go to the folder of the project and in the file of `server.js` change the script:
 ```javascript
 var connection = mysql.createConnection({
     host     : 'localhost',
@@ -30,4 +30,4 @@ var connection = mysql.createConnection({
 });
 ```
 
-Go to the folder of the project and run `node server.js` to start sensorServer
+Go to the folder of the project in a different terminal and run `node server.js` to start SensorServer
